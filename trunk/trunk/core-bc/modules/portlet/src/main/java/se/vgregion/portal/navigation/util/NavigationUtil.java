@@ -69,6 +69,9 @@ public class NavigationUtil {
 				
 				BreadcrumbsItem scopeGroupBreadcrumbsItem = getBreadcrumbsItem(scopeGroupDefaultLayout, scopeLayout, locale);
 				
+				// Change name for this breadcrumb to group name
+				scopeGroupBreadcrumbsItem.setName(scopeGroup.getName());
+				
 				breadcrumbsItems.add(scopeGroupBreadcrumbsItem);
 				
 			} catch (PortalException e) {
