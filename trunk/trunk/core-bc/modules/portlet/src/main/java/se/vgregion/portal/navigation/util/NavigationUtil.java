@@ -63,22 +63,11 @@ public class NavigationUtil {
 		if(!isNavigationSiteMain) {
 			
 			try {
-				BreadcrumbsItem scopeGroupBreadcrumbsItem = new BreadcrumbsItem();
-				
 				Group scopeGroup = scopeLayout.getGroup();
 				long scopeGroupDefaultPlid = LayoutLocalServiceUtil.getDefaultPlid(scopeGroup.getGroupId(), scopeLayout.isPrivateLayout());
 				Layout scopeGroupDefaultLayout = LayoutLocalServiceUtil.getLayout(scopeGroupDefaultPlid);
 				
-				String scopeGroupDefaultLayoutURLPrefix = getURLPrefixFromLayout(scopeGroupDefaultLayout);
-				String scopeGroupName = scopeGroup.getName();
-				
-				String scopeGroupBreadcrumbsItemName = scopeGroupName;
-				String scopeGroupBreadcrumbsItemUrl = scopeGroupDefaultLayoutURLPrefix;
-				boolean isSelectedScopeGroupBreadcrumbsItem = (scopeLayout.getPlid() == scopeGroupDefaultPlid);
-				
-				scopeGroupBreadcrumbsItem.setName(scopeGroupBreadcrumbsItemName);
-				scopeGroupBreadcrumbsItem.setUrl(scopeGroupBreadcrumbsItemUrl);
-				scopeGroupBreadcrumbsItem.setIsSelected(isSelectedScopeGroupBreadcrumbsItem);
+				BreadcrumbsItem scopeGroupBreadcrumbsItem = getBreadcrumbsItem(scopeGroupDefaultLayout, scopeLayout, locale);
 				
 				breadcrumbsItems.add(scopeGroupBreadcrumbsItem);
 				
@@ -91,11 +80,22 @@ public class NavigationUtil {
 		
 		if(isSignedIn) {
 			// Add base breadcrumb (start page for main navigation site)
-			String navigationSiteUrlPrefix = getURLPrefixFromNavigationSite(navigationSiteMain);
-			BreadcrumbsItem baseBreadcrumbsItem = new BreadcrumbsItem();
-			baseBreadcrumbsItem.setName("Start");
-			baseBreadcrumbsItem.setUrl(navigationSiteUrlPrefix);
-			breadcrumbsItems.add(baseBreadcrumbsItem);
+			
+			long mainGroupId = navigationSiteMain.getGroupId();
+			boolean isMainPrivate = navigationSiteMain.getIsPrivateLayout();
+			
+			try {
+				long mainGroupDefaultPlid = LayoutLocalServiceUtil.getDefaultPlid(mainGroupId, isMainPrivate);
+				Layout mainGroupDefaultLayout = LayoutLocalServiceUtil.getLayout(mainGroupDefaultPlid);
+				BreadcrumbsItem mainGroupBreadcrumbsItem = getBreadcrumbsItem(mainGroupDefaultLayout, scopeLayout, locale);
+				
+				breadcrumbsItems.add(mainGroupBreadcrumbsItem);
+				
+			} catch (PortalException e) {
+				LOG.error(e, e);
+			} catch (SystemException e) {
+				LOG.error(e, e);
+			}
 		}
 		
 		// Reverse order
