@@ -9,6 +9,14 @@
     <css-class-wrapper>rp-navigation-portlet</css-class-wrapper>
   </portlet>
 
+  <portlet>
+    <portlet-name>aggregated-breadcrumbs</portlet-name>
+    <action-url-redirect>true</action-url-redirect>
+    <instanceable>false</instanceable>
+    <css-class-wrapper>rp-breadcrumbs-portlet</css-class-wrapper>
+  </portlet>
+
+
   <role-mapper>
     <role-name>administrator</role-name>
     <role-link>Administrator</role-link>

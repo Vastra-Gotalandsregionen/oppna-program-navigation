@@ -12,46 +12,14 @@
 
 <portlet:defineObjects />
 
-<p>This is the RP Navigation Portlet in edit view...</p>
-
 <portlet:actionURL name="saveRpNavigationSettings" var="saveRpNavigationSettingsUrl" />
 <portlet:renderURL var="viewUrl" portletMode="view" />
 
  
 <aui:form action="${saveRpNavigationSettingsUrl}" name="settingsForm" method="post" cssClass="rp-navigation-settings-form">
 
-	<%--
-	<aui:select label="group-id-rp" name="groupIdRp">
-		<aui:option value="0">Value 0 (testing)</aui:option>
-	
-		<c:forEach var="group" items="${companyGroups}">
-		
-			<c:set var="optionSelected" value="false" scope="page" />
-			
-			<c:if test="${group.groupId eq groupIdRp}">
-				<c:set var="optionSelected" value="true" scope="page" />
-			</c:if>
-		
-			<aui:option value="${group.groupId}" selected="${optionSelected}">${group.name}</aui:option>									
-		</c:forEach>
-	</aui:select>
-	
-	<aui:select label="group-id-vap" name="groupIdVap">
-		<aui:option value="0">Value 0 (testing)</aui:option>
-		
-		<c:forEach var="group" items="${companyGroups}">
-			
-			<c:set var="optionSelected" value="false" scope="page" />
-			
-			<c:if test="${group.groupId eq groupIdVap}">
-				<c:set var="optionSelected" value="true" scope="page" />
-			</c:if>
-			
-			<aui:option value="${group.groupId}" selected="${optionSelected}">${group.name}</aui:option>									
-		</c:forEach>
-	</aui:select>
-	--%>
-	
+	<liferay-ui:header title="settings" />
+
 	<aui:fieldset label="main-site">
 		<aui:select label="choose-site" name="groupIdMainSite">
 			<aui:option value="0">

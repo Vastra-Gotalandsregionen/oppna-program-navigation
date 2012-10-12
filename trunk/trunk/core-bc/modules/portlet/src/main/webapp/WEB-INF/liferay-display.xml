@@ -3,6 +3,7 @@
 <display>
         <category name="VGR">
                 <portlet id="aggregated-navigation" />
+                <portlet id="aggregated-breadcrumbs" />
         </category>
 </display>
 

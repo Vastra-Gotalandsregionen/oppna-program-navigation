@@ -5,18 +5,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import javax.naming.ldap.HasControls;
 import javax.servlet.http.HttpServletRequest;
 
+import se.vgregion.portal.breadcrumbs.domain.BreadcrumbsItem;
 import se.vgregion.portal.navigation.domain.NavigationItem;
+import se.vgregion.portal.navigation.domain.jpa.NavigationSite;
 
+import com.liferay.portal.NoSuchLayoutException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
-import com.liferay.portal.kernel.util.ListUtil;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
@@ -32,8 +32,102 @@ import com.liferay.portlet.expando.service.ExpandoTableLocalServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
 
 public class NavigationUtil {
-
+	
 	private static Log LOG = LogFactoryUtil.getLog(NavigationUtil.class);
+	
+	public static List<BreadcrumbsItem> getBreadcrumbs(Layout scopeLayout, Locale locale, NavigationSite navigationSiteMain, boolean isSignedIn) {
+
+		ArrayList<BreadcrumbsItem> breadcrumbsItems = new ArrayList<BreadcrumbsItem>();
+		
+		BreadcrumbsItem scopeBreadcrumbsItem = getBreadcrumbsItem(scopeLayout, scopeLayout, locale);
+		breadcrumbsItems.add(scopeBreadcrumbsItem);
+		
+		boolean foundRootLayout = scopeBreadcrumbsItem.getIsRootLayout();
+		
+		while(!foundRootLayout) {
+			
+			BreadcrumbsItem previousBreadcrumbsItem = breadcrumbsItems.get(breadcrumbsItems.size() - 1);
+			
+			Layout previousLayout = previousBreadcrumbsItem.getLayout();
+			Layout currentLayout = getParentLayout(previousLayout);
+			
+			BreadcrumbsItem breadcrumbsItem = getBreadcrumbsItem(currentLayout, scopeLayout, locale);
+			
+			breadcrumbsItems.add(breadcrumbsItem);
+			
+			foundRootLayout = breadcrumbsItem.getIsRootLayout();
+		}
+		
+		boolean isNavigationSiteMain = ((scopeLayout.getGroupId() == navigationSiteMain.getGroupId()) && (scopeLayout.isPrivateLayout() == navigationSiteMain.getIsPrivateLayout()));
+		
+		if(!isNavigationSiteMain) {
+			
+			try {
+				BreadcrumbsItem scopeGroupBreadcrumbsItem = new BreadcrumbsItem();
+				
+				Group scopeGroup = scopeLayout.getGroup();
+				long scopeGroupDefaultPlid = LayoutLocalServiceUtil.getDefaultPlid(scopeGroup.getGroupId(), scopeLayout.isPrivateLayout());
+				Layout scopeGroupDefaultLayout = LayoutLocalServiceUtil.getLayout(scopeGroupDefaultPlid);
+				
+				String scopeGroupDefaultLayoutURLPrefix = getURLPrefixFromLayout(scopeGroupDefaultLayout);
+				String scopeGroupName = scopeGroup.getName();
+				
+				String scopeGroupBreadcrumbsItemName = scopeGroupName;
+				String scopeGroupBreadcrumbsItemUrl = scopeGroupDefaultLayoutURLPrefix;
+				boolean isSelectedScopeGroupBreadcrumbsItem = (scopeLayout.getPlid() == scopeGroupDefaultPlid);
+				
+				scopeGroupBreadcrumbsItem.setName(scopeGroupBreadcrumbsItemName);
+				scopeGroupBreadcrumbsItem.setUrl(scopeGroupBreadcrumbsItemUrl);
+				scopeGroupBreadcrumbsItem.setIsSelected(isSelectedScopeGroupBreadcrumbsItem);
+				
+				breadcrumbsItems.add(scopeGroupBreadcrumbsItem);
+				
+			} catch (PortalException e) {
+				LOG.error(e, e);
+			} catch (SystemException e) {
+				LOG.error(e, e);
+			}
+		}
+		
+		if(isSignedIn) {
+			// Add base breadcrumb (start page for main navigation site)
+			String navigationSiteUrlPrefix = getURLPrefixFromNavigationSite(navigationSiteMain);
+			BreadcrumbsItem baseBreadcrumbsItem = new BreadcrumbsItem();
+			baseBreadcrumbsItem.setName("Start");
+			baseBreadcrumbsItem.setUrl(navigationSiteUrlPrefix);
+			breadcrumbsItems.add(baseBreadcrumbsItem);
+		}
+		
+		// Reverse order
+		Collections.reverse(breadcrumbsItems);
+		
+		return breadcrumbsItems;
+	}
+	
+	private static BreadcrumbsItem getBreadcrumbsItem(Layout layout, Layout scopeLayout, Locale locale) {
+		
+		BreadcrumbsItem breadcrumbsItem = new BreadcrumbsItem();
+		
+		boolean isSelected = (layout.getPlid() == scopeLayout.getPlid());
+		String name = layout.getName(locale);
+		boolean isRootLayout = (layout.isRootLayout());
+		
+		String layoutURLPrefix = getURLPrefixFromLayout(layout);
+		
+		if(name.equals("")) {
+			name = "empty";
+		}
+		
+		String url = layoutURLPrefix + layout.getFriendlyURL();
+		
+		breadcrumbsItem.setIsSelected(isSelected);
+		breadcrumbsItem.setLayout(layout);
+		breadcrumbsItem.setName(name);
+		breadcrumbsItem.setIsRootLayout(isRootLayout);
+		breadcrumbsItem.setUrl(url);
+		
+		return breadcrumbsItem;
+	}
 	
 	public static List<Group> getCompanyGroups(long companyId) {
 		
@@ -327,6 +421,79 @@ public class NavigationUtil {
 		}
 		
 		return layoutsList;
+	}
+	
+	private static String getURLPrefix(Group group, boolean isPrivate) {
+
+		String urlPrefix = "";
+		
+		String groupFriendlyURL = group.getFriendlyURL();
+		
+		String visibilityFriendlyURL = isPrivate ? "/group" : "/web";
+		
+		urlPrefix = visibilityFriendlyURL + groupFriendlyURL;
+		
+		return urlPrefix;
+	}
+	
+	private static String getURLPrefixFromLayout(Layout layout) {
+
+		String urlPrefix = "";
+		
+		try {
+			Group group = layout.getGroup();
+			
+			urlPrefix = getURLPrefix(group, layout.isPrivateLayout());
+			
+		} catch (PortalException e) {
+			LOG.error(e, e);
+		} catch (SystemException e) {
+			LOG.error(e, e);
+		}
+		
+		return urlPrefix;
+	}
+	
+	private static String getURLPrefixFromNavigationSite(NavigationSite navigationSite) {
+
+		String urlPrefix = "";
+		
+		try {
+			long groupId = navigationSite.getGroupId();
+			Group group = GroupLocalServiceUtil.getGroup(groupId);
+			
+			urlPrefix = getURLPrefix(group, navigationSite.getIsPrivateLayout());
+			
+		} catch (PortalException e) {
+			LOG.error(e, e);
+		} catch (SystemException e) {
+			LOG.error(e, e);
+		}
+		
+		return urlPrefix;
+		
+		
+	}
+	
+	private static Layout getParentLayout(Layout layout) {
+		
+		Layout parentLayout = null;
+		
+		try {
+			long parentPlid = layout.getParentPlid();
+			
+			try {
+				parentLayout = LayoutLocalServiceUtil.getLayout(parentPlid);	
+			} catch (NoSuchLayoutException nsle) {
+				// Do nothing
+			}
+		} catch (PortalException e) {
+			LOG.error(e, e);
+		} catch (SystemException e) {
+			LOG.error(e, e);
+		}
+		
+		return parentLayout;	
 	}
 	
 	private static void setupCompanyExpandoColumn(long companyId, String columnName) throws SystemException, PortalException {
