@@ -46,7 +46,7 @@ public class NavigationViewController {
     @RenderMapping()
     public String showNavigation(RenderRequest request, RenderResponse response, final ModelMap model) {
 
-        LOGGER.info("showNavigation");
+        //LOGGER.info("showNavigation");
         
 		ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
 		long scopeGroupId = themeDisplay.getScopeGroupId();
@@ -92,8 +92,8 @@ public class NavigationViewController {
 		
 		
 		
-		LOGGER.info("showNavigation - navigationItemsRP.size: " + navigationItemsRP.size());
-		LOGGER.info("showNavigation - navigationItemsVAP.size: " + navigationItemsVAP.size());
+		//LOGGER.info("showNavigation - navigationItemsRP.size: " + navigationItemsRP.size());
+		//LOGGER.info("showNavigation - navigationItemsVAP.size: " + navigationItemsVAP.size());
 		
 		model.addAttribute("navigationItemsRP", navigationItemsRP);
 		model.addAttribute("navigationItemsVAP", navigationItemsVAP);
