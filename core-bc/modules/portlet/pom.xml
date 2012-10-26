@@ -14,7 +14,7 @@
   <name>${project.artifactId}</name>
 
   <build>
-    <finalName>oppna-program-navigation-portlet</finalName>
+    <finalName>navigation-portlet</finalName>
     <plugins>
       <plugin>
         <!-- Configure eclipse plug-in to generate a context root that does not have the version number on it -->
@@ -34,7 +34,11 @@
       <artifactId>oppna-program-navigation-core-bc-composite-svc</artifactId>
       <version>${project.version}</version>
     </dependency>
-    
+    <dependency>
+      <groupId>se.vgregion.commons-util</groupId>
+      <artifactId>commons-util-core-bc-composite-svc-liferay</artifactId>
+      <version>3.14-SNAPSHOT</version>
+    </dependency>
     <dependency>
       <groupId>javax.portlet</groupId>
       <artifactId>portlet-api</artifactId>
@@ -89,7 +93,7 @@
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
     </dependency>
- 
+
   </dependencies>
 
 </project>

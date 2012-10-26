@@ -16,6 +16,12 @@
     <css-class-wrapper>rp-breadcrumbs-portlet</css-class-wrapper>
   </portlet>
 
+  <portlet>
+    <portlet-name>login-link</portlet-name>
+    <instanceable>false</instanceable>
+    <css-class-wrapper>login-link-portlet</css-class-wrapper>
+  </portlet>
+
 
   <role-mapper>
     <role-name>administrator</role-name>
