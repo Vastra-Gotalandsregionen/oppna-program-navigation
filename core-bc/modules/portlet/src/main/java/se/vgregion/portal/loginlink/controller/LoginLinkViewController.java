@@ -10,21 +10,21 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
-import se.vgregion.liferay.expando.UserExpandoHelper;
-import se.vgregion.liferay.expando.UserExpandoHelperFactory;
 
 import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * Controller for the login link portlet.
+ *
  * @author Patrik Bergström
  */
 @Controller
 @RequestMapping(value = "VIEW")
 public class LoginLinkViewController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(LoginLinkViewController.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginLinkViewController.class.getName());
 
     @Value("${login.internal.url}")
     private String internalLoginUrl;
@@ -34,10 +34,19 @@ public class LoginLinkViewController {
     @Value("${ip_for_external_access}")
     private String ipForExternalAccess;
 
-    public LoginLinkViewController(){
+    /**
+     * Constructor.
+     */
+    public LoginLinkViewController() {
 
     }
-	
+
+    /**
+     * Check whether the request is internal or external and set the request attribute accordingly.
+     *
+     * @param request the request
+     * @return the view
+     */
     @RenderMapping()
     public String showLoginLink(RenderRequest request) {
 

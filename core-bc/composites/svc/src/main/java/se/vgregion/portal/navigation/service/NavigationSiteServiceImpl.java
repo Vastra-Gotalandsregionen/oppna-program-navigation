@@ -10,6 +10,8 @@ import se.vgregion.portal.navigation.domain.jpa.NavigationSite;
 import se.vgregion.portal.navigation.service.repository.NavigationSiteRepository;
 
 /**
+ * Implementation of {@link NavigationSiteService}.
+ *
  * @author Erik Andersson
  * @company Monator Technologies AB
  */
@@ -17,6 +19,11 @@ public class NavigationSiteServiceImpl implements NavigationSiteService {
 
     private NavigationSiteRepository navigationSiteRepository;
 
+    /**
+     * Constructor.
+     *
+     * @param navigationSiteRepository the {@link NavigationSiteRepository}
+     */
     @Autowired
     public NavigationSiteServiceImpl(NavigationSiteRepository navigationSiteRepository) {
         this.navigationSiteRepository = navigationSiteRepository;
@@ -26,7 +33,7 @@ public class NavigationSiteServiceImpl implements NavigationSiteService {
     public List<NavigationSite> findNavigationSitesByCompanyId(long companyId) {
         return navigationSiteRepository.findNavigationSitesByCompanyId(companyId);
     }
-    
+
     @Override
     public List<NavigationSite> findNavigationSitesByActiveState(long companyId, boolean isActive) {
         return navigationSiteRepository.findNavigationSitesByActiveState(companyId, isActive);
@@ -34,37 +41,40 @@ public class NavigationSiteServiceImpl implements NavigationSiteService {
 
     @Override
     public List<NavigationSite> findNavigationSitesByGroupId(long companyId, long groupId) {
-    	return navigationSiteRepository.findNavigationSitesByGroupId(companyId, groupId);
+        return navigationSiteRepository.findNavigationSitesByGroupId(companyId, groupId);
     }
 
     @Override
     public NavigationSite findNavigationSiteByOrderIndex(long companyId, int orderIndex) {
-    	return navigationSiteRepository.findNavigationSiteByOrderIndex(companyId, orderIndex);
-    }
-    
-    @Override
-    public List<NavigationSite> findNavigationSitesSub(long companyId) {
-    	return navigationSiteRepository.findNavigationSitesSub(companyId);
+        return navigationSiteRepository.findNavigationSiteByOrderIndex(companyId, orderIndex);
     }
 
+    @Override
+    public List<NavigationSite> findNavigationSitesSub(long companyId) {
+        return navigationSiteRepository.findNavigationSitesSub(companyId);
+    }
+
+    @Override
     @Transactional
     public void addNavigationSite(long userId, long companyId, long groupId) {
         NavigationSite navigationSite = new NavigationSite(userId, companyId, groupId);
         navigationSiteRepository.merge(navigationSite);
     }
-    
+
     @Override
     @Transactional
-    public void addNavigationSite(long userId, long companyId, long groupId, boolean isPrivateLayout, boolean isActive, int orderIndex) {
-        NavigationSite navigationSite = new NavigationSite(userId, companyId, groupId, isPrivateLayout, isActive, orderIndex);
+    public void addNavigationSite(long userId, long companyId, long groupId, boolean isPrivateLayout, boolean isActive,
+                                  int orderIndex) {
+        NavigationSite navigationSite = new NavigationSite(userId, companyId, groupId, isPrivateLayout, isActive,
+                orderIndex);
         navigationSiteRepository.merge(navigationSite);
     }
-    
+
     @Override
     public NavigationSite findNavigationSitesMain(long companyId) {
-    	return findNavigationSiteByOrderIndex(companyId, 0);
+        return findNavigationSiteByOrderIndex(companyId, 0);
     }
-    
+
 
     @Override
     public Collection<NavigationSite> findAll() {
