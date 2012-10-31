@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import javax.portlet.RenderRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import se.vgregion.portal.breadcrumbs.domain.BreadcrumbsItem;
@@ -17,13 +18,17 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
+import com.liferay.portal.model.LayoutSet;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
+import com.liferay.portal.service.LayoutSetLocalServiceUtil;
 import com.liferay.portal.service.permission.LayoutPermissionUtil;
+import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.expando.model.ExpandoColumnConstants;
 import com.liferay.portlet.expando.model.ExpandoTable;
 import com.liferay.portlet.expando.model.ExpandoTableConstants;
@@ -402,6 +407,46 @@ public final class NavigationUtil {
         navigationItem.setChildren(navigationItems);
 
         return navigationItem;
+    }
+    
+    /**
+     * Updates a list of breadcrumbitems to use virtual host in the breadcrumb url
+     * if a virtual host is used and the client is currently on the virtual host
+     * @param companyId the companyId
+     * @param groupId   the groupId
+     */
+    public static List<BreadcrumbsItem> updateBreadcrumbsWithVirtualHost(List<BreadcrumbsItem> breadcrumbs, RenderRequest renderRequest) {
+    	
+        ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+        Group scopeGroup = themeDisplay.getScopeGroup();
+        Layout scopeLayout = themeDisplay.getLayout();
+        
+        String requestCurrentURL = (String)renderRequest.getAttribute("CURRENT_URL");
+        String requestFriendlyURL = (String)renderRequest.getAttribute("FRIENDLY_URL");
+        
+        boolean clientOnVirtualHost = !requestCurrentURL.contains(requestFriendlyURL);
+        if(clientOnVirtualHost) {
+        	
+        	for(BreadcrumbsItem breadcrumb : breadcrumbs) {
+        		String breadcrumbURL = breadcrumb.getUrl();
+    	        
+    	        String layoutSetFriendyURL = "/web";
+    	        
+    	        if(scopeLayout.isPrivateLayout()) {
+    	        	layoutSetFriendyURL = "/group";
+    	        }
+    	        
+    	        String scopeGroupFriendlyURL = scopeGroup.getFriendlyURL();
+    	        
+    	        String urlPrefix = layoutSetFriendyURL + scopeGroupFriendlyURL;
+        		
+    	        breadcrumbURL = breadcrumbURL.replace(urlPrefix, "");
+        		
+        		breadcrumb.setUrl(breadcrumbURL);
+        	}
+        }
+    	
+    	return breadcrumbs;
     }
 
 
