@@ -4,8 +4,7 @@
     versions of third-party dependencies used throughout the system. Template version: 1.4
     Generation time : 2011-10-07 13:31:17 CEST
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>se.vgregion.common</groupId>
@@ -16,7 +15,7 @@
   <groupId>se.vgregion.oppna-program-navigation</groupId>
   <artifactId>oppna-program-navigation-system</artifactId>
   <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>${project.artifactId}</name>
 
   <modules>
@@ -30,4 +29,9 @@
     <url>http://oppna-program-delegation-service.googlecode.com/svn/trunk</url>
   </scm-->
 
+
+  <scm>
+    <developerConnection>scm:svn:https://oppna-program-commons.googlecode.com/svn/corporate-pom/tags/oppna-program-navigation-system-1.0</developerConnection>
+    <url>http://oppna-program-commons.googlecode.com/svn/corporate-pom/tags/oppna-program-navigation-system-1.0</url>
+  </scm>
 </project>
