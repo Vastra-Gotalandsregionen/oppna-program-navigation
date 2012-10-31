@@ -59,7 +59,6 @@ public class BreadcrumbsViewController {
     public String showBreadcrumbs(RenderRequest request, RenderResponse response, final ModelMap model) {
 
         ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
-        long scopeGroupId = themeDisplay.getScopeGroupId();
         long companyId = themeDisplay.getCompanyId();
         Locale locale = themeDisplay.getLocale();
 
