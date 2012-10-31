@@ -270,7 +270,6 @@ public final class NavigationUtil {
 
         }
 
-
         return navigationItem;
     }
 
@@ -596,8 +595,6 @@ public final class NavigationUtil {
         }
 
         return urlPrefix;
-
-
     }
 
     private static Layout getParentLayout(Layout layout) {
