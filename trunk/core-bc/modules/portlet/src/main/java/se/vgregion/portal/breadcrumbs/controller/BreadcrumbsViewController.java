@@ -1,7 +1,11 @@
 package se.vgregion.portal.breadcrumbs.controller;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Layout;
+import com.liferay.portal.model.LayoutSet;
+import com.liferay.portal.service.LayoutSetLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,6 +70,8 @@ public class BreadcrumbsViewController {
 
         List<BreadcrumbsItem> breadcrumbs = NavigationUtil.getBreadcrumbs(scopeLayout, locale, navigationSiteMain,
                 isSignedIn);
+        
+        breadcrumbs = NavigationUtil.updateBreadcrumbsWithVirtualHost(breadcrumbs, request);
 
         model.addAttribute("breadcrumbs", breadcrumbs);
 
