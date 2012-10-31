@@ -532,17 +532,26 @@ public final class NavigationUtil {
             	long groupId = layout.getGroupId();
             	
             	boolean isCommunityMember = GroupLocalServiceUtil.hasUserGroup(userId, groupId);
-            	
-                boolean hasPermissions = LayoutPermissionUtil.contains(permissionChecker, layout,
-                        NavigationConstants.LAYOUT_ACTION_ID_VIEW);
 
+            	boolean hasPermissions = LayoutPermissionUtil.contains(permissionChecker, layout,
+                        NavigationConstants.LAYOUT_ACTION_ID_VIEW);
+            	
                 boolean isHidden = layout.isHidden();
 
                 boolean hasSignedInPermission = layout.isPublicLayout() || (layout.isPrivateLayout() && isSignedIn);
 
-                if (isCommunityMember && hasPermissions && !isHidden && hasSignedInPermission) {
-                    layoutsList.add(layout);
+                if(isSignedIn) {
+                    if (isCommunityMember && hasPermissions && !isHidden && hasSignedInPermission) {
+                        layoutsList.add(layout);
+                    }
+                } else {
+                    
+                    if (hasPermissions && !isHidden && hasSignedInPermission) {
+                        layoutsList.add(layout);
+                    }
+                	
                 }
+                
             } catch (PortalException e) {
                 LOGGER.error(e, e);
             } catch (SystemException e) {
