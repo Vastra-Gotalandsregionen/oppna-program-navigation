@@ -14,7 +14,6 @@
 
 <portlet:actionURL name="saveRpNavigationSettings" var="saveRpNavigationSettingsUrl" />
 <portlet:renderURL var="viewUrl" portletMode="view" />
-
  
 <aui:form action="${saveRpNavigationSettingsUrl}" name="settingsForm" method="post" cssClass="rp-navigation-settings-form">
 
