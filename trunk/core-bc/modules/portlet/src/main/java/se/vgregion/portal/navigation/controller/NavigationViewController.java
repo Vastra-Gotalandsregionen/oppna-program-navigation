@@ -66,7 +66,7 @@ public class NavigationViewController {
         Locale locale = themeDisplay.getLocale();
 
         HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(request);
-
+        
         boolean isSignedIn = themeDisplay.isSignedIn();
         Layout currentLayout = themeDisplay.getLayout();
 

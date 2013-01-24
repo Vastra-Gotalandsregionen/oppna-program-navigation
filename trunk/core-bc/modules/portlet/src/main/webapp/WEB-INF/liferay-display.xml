@@ -5,6 +5,7 @@
                 <portlet id="aggregated-navigation" />
                 <portlet id="aggregated-breadcrumbs" />
                 <portlet id="login-link" />
+                <portlet id="site-navigation" />
         </category>
 </display>
 
