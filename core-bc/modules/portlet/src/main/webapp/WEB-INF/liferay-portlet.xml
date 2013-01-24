@@ -22,6 +22,12 @@
     <css-class-wrapper>login-link-portlet</css-class-wrapper>
   </portlet>
 
+  <portlet>
+    <portlet-name>site-navigation</portlet-name>
+    <action-url-redirect>true</action-url-redirect>
+    <instanceable>false</instanceable>
+    <css-class-wrapper>rp-site-navigation-portlet</css-class-wrapper>
+  </portlet>
 
   <role-mapper>
     <role-name>administrator</role-name>

@@ -9,23 +9,29 @@ public class NavigationItem {
     private List<NavigationItem> children;
     private boolean isSelected;
     private boolean isChildSelected;
+    private boolean isTypeUrl;
+    private boolean isTypeLinkToLayout;
     private Layout layout;
     private String name;
     private String title;
     private String url;
     private String target;
+    private String expandoNavigationDescription;
+    private String expandoNavigationCssClass;
 
     /**
      * Constructor.
      */
-    public NavigationItem() {
-    }
 
+    public NavigationItem() {
+		super();
+	}
+    
     public List<NavigationItem> getChildren() {
         return children;
     }
 
-    public void setChildren(List<NavigationItem> children) {
+	public void setChildren(List<NavigationItem> children) {
         this.children = children;
     }
 
@@ -43,6 +49,22 @@ public class NavigationItem {
 
     public void setIsChildSelected(boolean isChildSelected) {
         this.isChildSelected = isChildSelected;
+    }
+    
+    public boolean getIsTypeUrl() {
+        return isTypeUrl;
+    }
+
+    public void setIsTypeUrl(boolean isTypeUrl) {
+        this.isTypeUrl = isTypeUrl;
+    }
+    
+    public boolean getIsTypeLinkToLayout() {
+        return isTypeLinkToLayout;
+    }
+
+    public void setIsTypeLinkToLayout(boolean isTypeLinkToLayout) {
+        this.isTypeLinkToLayout = isTypeLinkToLayout;
     }
 
     public Layout getLayout() {
@@ -84,5 +106,21 @@ public class NavigationItem {
     public void setTarget(String target) {
         this.target = target;
     }
+
+	public String getExpandoNavigationDescription() {
+		return expandoNavigationDescription;
+	}
+
+	public void setExpandoNavigationDescription(String expandoNavigationDescription) {
+		this.expandoNavigationDescription = expandoNavigationDescription;
+	}
+
+	public String getExpandoNavigationCssClass() {
+		return expandoNavigationCssClass;
+	}
+
+	public void setExpandoNavigationCssClass(String expandoNavigationCssClass) {
+		this.expandoNavigationCssClass = expandoNavigationCssClass;
+	}
 
 }

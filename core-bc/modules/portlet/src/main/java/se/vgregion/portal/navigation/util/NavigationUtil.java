@@ -453,15 +453,21 @@ public final class NavigationUtil {
                                                        HttpServletRequest httpServletRequest,
                                                        PermissionChecker permissionChecker, boolean isSignedIn) {
         NavigationItem navigationItem = new NavigationItem();
+        
+        //layout.isTypeURL()
 
         String name = HtmlUtil.escape(layout.getName(locale));
         String title = layout.getTitle(locale);
         String target = layout.getTarget();
+        boolean isTypeUrl = layout.isTypeURL();
+        boolean isTypeLinkToLayout = layout.isTypeLinkToLayout();
 
         navigationItem.setLayout(layout);
         navigationItem.setName(name);
         navigationItem.setTitle(title);
         navigationItem.setTarget(target);
+        navigationItem.setIsTypeUrl(isTypeUrl);
+        navigationItem.setIsTypeLinkToLayout(isTypeLinkToLayout);
 
         String url;
         try {
