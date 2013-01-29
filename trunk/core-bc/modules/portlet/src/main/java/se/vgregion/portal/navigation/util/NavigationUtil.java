@@ -29,6 +29,7 @@ import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.LayoutSetLocalServiceUtil;
 import com.liferay.portal.service.permission.LayoutPermissionUtil;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.expando.model.ExpandoColumnConstants;
 import com.liferay.portlet.expando.model.ExpandoTable;
 import com.liferay.portlet.expando.model.ExpandoTableConstants;
@@ -302,6 +303,8 @@ public final class NavigationUtil {
             List<Layout> layouts = LayoutLocalServiceUtil.getLayouts(groupId, privateLayout, 0);
 
             List<Layout> filteredLayouts = filterLayouts(layouts, permissionChecker, isSignedIn);
+            
+            //filteredLayouts = filterLayoutsWithTypeUrl(filteredLayouts, permissionChecker, httpServletRequest);
 
             for (Layout layout : filteredLayouts) {
 
@@ -566,6 +569,41 @@ public final class NavigationUtil {
         }
 
         return layoutsList;
+    }
+
+    // Not finished yet. Also, not used yet.
+    private static List<Layout> filterLayoutsWithTypeUrl(List<Layout> layouts, PermissionChecker permissionChecker, HttpServletRequest httpServletRequest) {
+    	ArrayList<Layout> layoutsList = new ArrayList<Layout>();
+    	
+    	for(Layout layout : layouts) {
+    		
+    		if(layout.isTypeURL()) {
+    			try {
+					String resetLayoutUrl = layout.getResetLayoutURL(httpServletRequest);
+					
+					//System.out.println("NavigationUtil - filterLayoutsWithTypeUrl - found URL layout with resetLayoutUrl: " + resetLayoutUrl);
+					//boolean isAbsoluteUrl = resetLayoutUrl.startsWith("http://");
+					//System.out.println("NavigationUtil - filterLayoutsWithTypeUrl - isAbsoluteUrl: " + isAbsoluteUrl);
+					
+					String portalURL = PortalUtil.getPortalURL(httpServletRequest);
+					System.out.println("NavigationUtil - filterLayoutsWithTypeUrl - portalURL: " + portalURL);
+					
+					
+				} catch (PortalException e) {
+					LOGGER.error(e, e);
+				} catch (SystemException e) {
+					LOGGER.error(e, e);
+				}
+    			
+    			//boolean isFullUrl = 
+    			
+    			layoutsList.add(layout);
+    		} else {
+    			layoutsList.add(layout);	
+    		}
+    	}
+    	
+    	return layoutsList;
     }
 
     private static String getURLPrefix(Group group, boolean isPrivate) {
