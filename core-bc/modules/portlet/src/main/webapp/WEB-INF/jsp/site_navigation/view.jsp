@@ -17,36 +17,36 @@
 		<nav class="site-navigation">
 			<ul class="site-navigation-list">
 				<c:forEach var="navItem" items="${navigationItems}" varStatus="status">
-				
-					<li class="${navItem.expandoNavigationCssClass}">
-						<div class="rp-box">
-							<div class="rp-box-inner">
-								<div class="nav-item-top">
-									<c:choose>
-										<c:when test="${navItem.isTypeLinkToLayout}">
-											<span class="nav-item-title"><span>${navItem.name}</span></span>
-										</c:when>
-										<c:otherwise>
-											<a class="nav-item-title" href="${navItem.url}" target="${navItem.target}"><span>${navItem.name}</span></a>
-										</c:otherwise>
-									</c:choose>
-									<div class="nav-item-description">
-										${navItem.expandoNavigationDescription}
-									</div>									
-								</div>
-								<c:if test="${not empty navItem.children}">
-									<ul class="site-navigation-sub-list">
-										<c:forEach var="navItemLevel2" items="${navItem.children}" varStatus="status">
-											<li>
-												<a href="${navItemLevel2.url}" target="${navItemLevel2.target}"><span>${navItemLevel2.name}</span></a>
-											</li>
-										</c:forEach>
-									</ul>
-								</c:if>
-							</div>
-						</div>
-					</li>
-				
+				    <c:if test="${not empty navItem.children or not navItem.isTypeLinkToLayout}">
+                        <li class="${navItem.expandoNavigationCssClass}">
+                            <div class="rp-box">
+                                <div class="rp-box-inner">
+                                    <div class="nav-item-top">
+                                        <c:choose>
+                                            <c:when test="${navItem.isTypeLinkToLayout}">
+                                                <span class="nav-item-title"><span>${navItem.name}</span></span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a class="nav-item-title" href="${navItem.url}" target="${navItem.target}"><span>${navItem.name}</span></a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <div class="nav-item-description">
+                                            ${navItem.expandoNavigationDescription}
+                                        </div>
+                                    </div>
+                                    <c:if test="${not empty navItem.children}">
+                                        <ul class="site-navigation-sub-list">
+                                            <c:forEach var="navItemLevel2" items="${navItem.children}" varStatus="status">
+                                                <li>
+                                                    <a href="${navItemLevel2.url}" target="${navItemLevel2.target}"><span>${navItemLevel2.name}</span></a>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </div>
+                            </div>
+                        </li>
+                    </c:if>
 				</c:forEach>		
 			</ul>
 		</nav>
