@@ -15,7 +15,7 @@
   <groupId>se.vgregion.oppna-program-navigation</groupId>
   <artifactId>oppna-program-navigation-system</artifactId>
   <packaging>pom</packaging>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.1-SNAPSHOT</version>
   <name>${project.artifactId}</name>
 
   <modules>
