@@ -492,7 +492,7 @@ public final class NavigationUtil {
 
         String url;
         try {
-            url = HtmlUtil.escape(HtmlUtil.escapeHREF(layout.getResetLayoutURL(httpServletRequest)));
+            url = layout.getResetLayoutURL(httpServletRequest);
 
             boolean isSelected = currentLayout.isSelected(true, layout, layout.getAncestorPlid());
             boolean isChildSelected = layout.isChildSelected(true, currentLayout);
