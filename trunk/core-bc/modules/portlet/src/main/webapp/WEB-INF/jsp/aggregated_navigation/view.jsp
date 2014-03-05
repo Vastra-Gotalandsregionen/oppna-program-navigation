@@ -69,13 +69,13 @@
 												<a href="${navItemLevel2.url}" target="${navItemLevel2.target}"><span>${navItemLevel2.name}</span></a>
 												<c:if test="${not empty navItemLevel2.children}">
 													<%-- Third level --%>
-													<ul class="nav-list-sub nav-list-sub-2 aui-helper-hidden">
+													<ul class="nav-list-sub nav-list-sub-2 helper-hidden">
 														<c:forEach var="navItemLevel3" items="${navItemLevel2.children}">
 															<li>
 																<a href="${navItemLevel3.url}" target="${navItemLevel3.target}"><span>${navItemLevel3.name}</span></a>
 																<c:if test="${not empty navItemLevel3.children}">
 																	<%-- Fourth level --%>
-																	<ul class="nav-list-sub nav-list-sub-3 aui-helper-hidden">
+																	<ul class="nav-list-sub nav-list-sub-3 helper-hidden">
 																		<c:forEach var="navItemLevel4" items="${navItemLevel3.children}">
 																			<li>
 																				<a href="${navItemLevel4.url}" target="${navItemLevel4.target}"><span>${navItemLevel4.name}</span></a>

@@ -34,7 +34,7 @@
 
 <c:choose>
 	<c:when test="${not empty breadcrumbs}">
-		<nav id="breadcrumbs" class="site-breadcrumbs aui-helper-hidden_ clearfix">
+		<nav id="breadcrumbs" class="site-breadcrumbs helper-hidden_ clearfix">
 			<div class="breadcrumbs-list-wrap clearfix">
 				<div class="breadcrumbs-label"> Du är här:</div>
 				<ul class="breadcrumbs">
