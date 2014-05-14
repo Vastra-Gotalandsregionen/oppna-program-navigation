@@ -44,13 +44,17 @@
       <short-title>Aggregated Navigation</short-title>
       <keywords>aggregated navigation</keywords>
     </portlet-info>
-    
-	<portlet-preferences>
-	    <preference>
-	      <name>portlet-setup-show-borders</name>
-	      <value>false</value>
-	    </preference>
-	</portlet-preferences>		
+
+    <portlet-preferences>
+      <preference>
+        <name>portlet-setup-show-borders</name> <!-- For backwards compatibility with LP 6.0. Remove when we're finished with that version. -->
+        <value>false</value>
+      </preference>
+      <preference>
+        <name>portletSetupShowBorders</name>
+        <value>false</value>
+      </preference>
+    </portlet-preferences>
 
 	<security-role-ref>
 		<role-name>administrator</role-name>
