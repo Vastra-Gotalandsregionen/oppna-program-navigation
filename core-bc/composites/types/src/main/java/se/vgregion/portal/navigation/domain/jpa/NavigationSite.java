@@ -30,7 +30,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "vgr_navigation_site"
-        //,uniqueConstraints = @UniqueConstraint(columnNames = {"folder_id", "documentid"})
+        ,uniqueConstraints = @UniqueConstraint(columnNames = {"company_id", "order_index"})
 )
 public class NavigationSite extends AbstractEntity<Long> {
 
@@ -47,7 +47,7 @@ public class NavigationSite extends AbstractEntity<Long> {
     @Column(name = "company_id")
     private long companyId;
 
-    @Column(name = "order_index", unique = true)
+    @Column(name = "order_index")
     private int orderIndex;
 
     @Column(name = "private_layout")
