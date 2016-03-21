@@ -85,6 +85,18 @@ public class BreadcrumbsViewController {
 
         NavigationSite navigationSiteMain = navigationSiteService.findNavigationSitesMain(companyId);
 
+        if (navigationSiteMain == null) {
+            // Fallback on current site.
+            navigationSiteMain = new NavigationSite(
+                    themeDisplay.getUserId(),
+                    themeDisplay.getCompanyId(),
+                    themeDisplay.getSiteGroupId(),
+                    themeDisplay.getLayout().isPrivateLayout(),
+                    true,
+                    0
+            );
+        }
+
         List<BreadcrumbsItem> breadcrumbs = NavigationUtil.getBreadcrumbs(scopeLayout, locale, navigationSiteMain,
                 isSignedIn);
         
