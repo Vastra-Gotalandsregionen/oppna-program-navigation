@@ -98,13 +98,13 @@ public class SiteNavigationViewController {
     		
     		String navigationDescription = (String)expandoBridge.getAttribute("navigationDescription");
     		
-    		if(!navigationDescription.equals("")) {
+    		if(navigationDescription != null && !navigationDescription.equals("")) {
     			navigationItem.setExpandoNavigationDescription(navigationDescription);	
     		}
     		
     		String navigationCssClass = (String)expandoBridge.getAttribute("navigationCssClass");
     		
-    		if(!navigationCssClass.equals("")) {
+    		if(navigationCssClass != null && !navigationCssClass.equals("")) {
     			navigationItem.setExpandoNavigationCssClass(navigationCssClass);	
     		}
     		
