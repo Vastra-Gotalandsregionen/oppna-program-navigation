@@ -96,7 +96,11 @@
 	      <name>portlet-setup-show-borders</name>
 	      <value>false</value>
 	    </preference>
-	</portlet-preferences>		
+		<preference>
+			<name>portletSetupShowBorders</name>
+			<value>false</value>
+		</preference>
+	</portlet-preferences>
 
 	<security-role-ref>
 		<role-name>administrator</role-name>
@@ -138,6 +142,10 @@
 	      <name>portlet-setup-show-borders</name>
 	      <value>false</value>
 	    </preference>
+		<preference>
+			<name>portletSetupShowBorders</name>
+			<value>false</value>
+		</preference>
 	</portlet-preferences>
 
 	<security-role-ref>
@@ -181,7 +189,11 @@
 	      <name>portlet-setup-show-borders</name>
 	      <value>false</value>
 	    </preference>
-	</portlet-preferences>		
+		<preference>
+			<name>portletSetupShowBorders</name>
+			<value>false</value>
+		</preference>
+	</portlet-preferences>
 
 	<security-role-ref>
 		<role-name>administrator</role-name>
