@@ -26,34 +26,35 @@ import java.util.Locale;
 import javax.portlet.RenderRequest;
 import javax.servlet.http.HttpServletRequest;
 
+import com.liferay.expando.kernel.service.ExpandoValueLocalServiceUtil;
 import se.vgregion.portal.breadcrumbs.domain.BreadcrumbsItem;
 import se.vgregion.portal.navigation.domain.NavigationItem;
 import se.vgregion.portal.navigation.domain.jpa.NavigationSite;
 
-import com.liferay.portal.NoSuchLayoutException;
+import com.liferay.portal.kernel.exception.NoSuchLayoutException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.model.Company;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.LayoutSet;
-import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.LayoutLocalServiceUtil;
-import com.liferay.portal.service.LayoutSetLocalServiceUtil;
-import com.liferay.portal.service.permission.LayoutPermissionUtil;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.expando.model.ExpandoColumnConstants;
-import com.liferay.portlet.expando.model.ExpandoTable;
-import com.liferay.portlet.expando.model.ExpandoTableConstants;
-import com.liferay.portlet.expando.service.ExpandoColumnLocalServiceUtil;
-import com.liferay.portlet.expando.service.ExpandoTableLocalServiceUtil;
-import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutSet;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutSetLocalServiceUtil;
+import com.liferay.portal.kernel.service.permission.LayoutPermissionUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.expando.kernel.model.ExpandoColumnConstants;
+import com.liferay.expando.kernel.model.ExpandoTable;
+import com.liferay.expando.kernel.model.ExpandoTableConstants;
+import com.liferay.expando.kernel.service.ExpandoColumnLocalServiceUtil;
+import com.liferay.expando.kernel.service.ExpandoTableLocalServiceUtil;
+import com.liferay.expando.kernel.service.ExpandoValueLocalServiceUtil;
 
 public final class NavigationUtil {
 
@@ -443,27 +444,29 @@ public final class NavigationUtil {
         
         String requestCurrentURL = (String)renderRequest.getAttribute("CURRENT_URL");
         String requestFriendlyURL = (String)renderRequest.getAttribute("FRIENDLY_URL");
-        
-        boolean clientOnVirtualHost = !requestCurrentURL.contains(requestFriendlyURL);
-        if(clientOnVirtualHost) {
-        	
-        	for(BreadcrumbsItem breadcrumb : breadcrumbs) {
-        		String breadcrumbURL = breadcrumb.getUrl();
-    	        
-    	        String layoutSetFriendyURL = "/web";
-    	        
-    	        if(scopeLayout.isPrivateLayout()) {
-    	        	layoutSetFriendyURL = "/group";
-    	        }
-    	        
-    	        String scopeGroupFriendlyURL = scopeGroup.getFriendlyURL();
-    	        
-    	        String urlPrefix = layoutSetFriendyURL + scopeGroupFriendlyURL;
-        		
-    	        breadcrumbURL = breadcrumbURL.replace(urlPrefix, "");
-        		
-        		breadcrumb.setUrl(breadcrumbURL);
-        	}
+
+        if (requestCurrentURL != null && requestFriendlyURL != null) {
+            boolean clientOnVirtualHost = !requestCurrentURL.contains(requestFriendlyURL);
+            if (clientOnVirtualHost) {
+
+                for (BreadcrumbsItem breadcrumb : breadcrumbs) {
+                    String breadcrumbURL = breadcrumb.getUrl();
+
+                    String layoutSetFriendyURL = "/web";
+
+                    if (scopeLayout.isPrivateLayout()) {
+                        layoutSetFriendyURL = "/group";
+                    }
+
+                    String scopeGroupFriendlyURL = scopeGroup.getFriendlyURL();
+
+                    String urlPrefix = layoutSetFriendyURL + scopeGroupFriendlyURL;
+
+                    breadcrumbURL = breadcrumbURL.replace(urlPrefix, "");
+
+                    breadcrumb.setUrl(breadcrumbURL);
+                }
+            }
         }
     	
     	return breadcrumbs;

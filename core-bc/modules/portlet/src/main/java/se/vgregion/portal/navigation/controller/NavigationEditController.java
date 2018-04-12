@@ -40,8 +40,8 @@ import se.vgregion.portal.navigation.util.NavigationUtil;
 
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 
 /**
  * Controller for the edit view for the navigation portlet.

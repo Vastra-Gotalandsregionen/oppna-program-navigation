@@ -18,7 +18,7 @@
 
 package se.vgregion.portal.breadcrumbs.domain;
 
-import com.liferay.portal.model.Layout;
+import com.liferay.portal.kernel.model.Layout;
 
 public class BreadcrumbsItem {
 

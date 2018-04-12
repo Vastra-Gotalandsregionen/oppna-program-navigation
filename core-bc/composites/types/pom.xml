@@ -30,5 +30,11 @@ Generation time : 2012-05-07 13:39:44 CEST
       <artifactId>hibernate-entitymanager</artifactId>
       <version>3.6.0.Final</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>4.3.1.Final</version>
+    </dependency>
   </dependencies>
 </project>

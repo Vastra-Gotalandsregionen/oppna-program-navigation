@@ -40,9 +40,9 @@ import se.vgregion.portal.navigation.util.NavigationConstants;
 import se.vgregion.portal.navigation.util.NavigationUtil;
 
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 /**
  * Controller class for the view mode in navigation portlet.

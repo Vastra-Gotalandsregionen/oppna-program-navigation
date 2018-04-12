@@ -19,13 +19,14 @@
 
 -->
 
-<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.2.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_2_0.dtd">
+<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 7.0.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_7_0_0.dtd">
 
 <liferay-portlet-app>
   <portlet>
     <portlet-name>aggregated-navigation</portlet-name>
     <action-url-redirect>true</action-url-redirect>
     <instanceable>false</instanceable>
+    <single-page-application>false</single-page-application>
     <requires-namespaced-parameters>false</requires-namespaced-parameters>
     <css-class-wrapper>rp-navigation-portlet</css-class-wrapper>
   </portlet>
@@ -34,6 +35,7 @@
     <portlet-name>aggregated-breadcrumbs</portlet-name>
     <action-url-redirect>true</action-url-redirect>
     <instanceable>false</instanceable>
+    <single-page-application>false</single-page-application>
     <requires-namespaced-parameters>false</requires-namespaced-parameters>
     <css-class-wrapper>rp-breadcrumbs-portlet</css-class-wrapper>
   </portlet>
@@ -41,6 +43,7 @@
   <portlet>
     <portlet-name>login-link</portlet-name>
     <instanceable>false</instanceable>
+    <single-page-application>false</single-page-application>
     <requires-namespaced-parameters>false</requires-namespaced-parameters>
     <css-class-wrapper>login-link-portlet</css-class-wrapper>
   </portlet>
@@ -49,6 +52,7 @@
     <portlet-name>site-navigation</portlet-name>
     <action-url-redirect>true</action-url-redirect>
     <instanceable>false</instanceable>
+    <single-page-application>false</single-page-application>
     <requires-namespaced-parameters>false</requires-namespaced-parameters>
     <css-class-wrapper>rp-site-navigation-portlet</css-class-wrapper>
   </portlet>

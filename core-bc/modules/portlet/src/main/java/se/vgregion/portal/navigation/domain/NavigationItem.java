@@ -20,7 +20,7 @@ package se.vgregion.portal.navigation.domain;
 
 import java.util.List;
 
-import com.liferay.portal.model.Layout;
+import com.liferay.portal.kernel.model.Layout;
 
 public class NavigationItem {
 
