@@ -41,14 +41,6 @@
   </portlet>
 
   <portlet>
-    <portlet-name>login-link</portlet-name>
-    <instanceable>false</instanceable>
-    <single-page-application>false</single-page-application>
-    <requires-namespaced-parameters>false</requires-namespaced-parameters>
-    <css-class-wrapper>login-link-portlet</css-class-wrapper>
-  </portlet>
-
-  <portlet>
     <portlet-name>site-navigation</portlet-name>
     <action-url-redirect>true</action-url-redirect>
     <instanceable>false</instanceable>
