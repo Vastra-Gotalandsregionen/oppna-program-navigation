@@ -649,8 +649,6 @@ public final class NavigationUtil {
 
             urlPrefix = getURLPrefix(group, layout.isPrivateLayout());
 
-        } catch (PortalException e) {
-            LOGGER.error(e, e);
         } catch (SystemException e) {
             LOGGER.error(e, e);
         }
