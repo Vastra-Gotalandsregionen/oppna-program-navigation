@@ -30,7 +30,7 @@
   </scm>
 
   <properties>
-    <liferay.version>7.2.1</liferay.version>
+    <liferay.version>7.3.1</liferay.version>
     <spring.fw.version>4.3.12.RELEASE</spring.fw.version>
     <!--<spring.fw.version>3.0.5.RELEASE</spring.fw.version>-->
   </properties>
